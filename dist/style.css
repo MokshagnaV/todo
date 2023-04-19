@@ -125,4 +125,126 @@ main{
 
 .main-content{
     padding: 1rem;
+    display: flex;
+    flex: 1;
+}
+#container{
+    position: relative;
+    flex: 1;
+}
+
+.add{
+    border: 1px solid var(--dark-clr);
+    padding: .5rem;
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    border-radius: 50%;
+    color: var(--light-clr);
+    background-color: var(--dark-clr);
+    cursor: pointer;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    transition: box-shadow 0.5s ease-in-out;
+    z-index: 10;
+}
+.add:hover{
+    box-shadow: 0 0 10px var(--dark-clr);
+}
+.modal{
+    display: none;  
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    transition: .5s;
+}
+.modal-open{
+    backdrop-filter: blur(3px);
+    display: flex;
+}
+.modal-parent{
+    transition: .5s;
+}
+.modal-content{
+    display: flex;
+    flex-direction: column;
+}
+.modal-header{
+    background-color: #2A2F4F;
+    color: var(--light-clr);
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: .5rem 1rem;
+    font-size: 2rem;
+}
+.modal-header h1{
+    font-weight: 800;
+}
+.modal-body{
+    padding: 1rem;
+    background-color: var(--light-clr);
+    flex: 1;
+}
+.modal-footer{
+    background-color: var(--primary-clr);
+    display: flex;
+    justify-content: center;
+}
+#close{
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+button{
+    font-size: 1rem;
+    font-weight: 700;
+    padding: .5rem 2rem;
+    background-color: var(--light-clr);
+    border: 5px solid var(--sec-clr);
+    cursor: pointer;
+    margin: 1rem;
+    border-radius: 10px;
+    transition: .5s;
+}
+button:hover{
+    box-shadow: 0 0 10px var(--sec-clr);
+}
+button#close{
+    font-size: 1rem;
+    background-color: var(--light-clr);
+    border: 5px solid var(--sec-clr);
+}
+.form-item{
+    display: flex;
+    justify-content: space-between;
+}
+.task{
+    display: flex;
+    justify-content: space-between;
+    color: var(--light-clr);
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.high{
+    background-color: red;
+}
+
+.moderate{
+    background-color: yellow;
+    color: #2A2F4F;
+}
+
+.low{
+    background-color: green;
+    color: #fff;
 }
