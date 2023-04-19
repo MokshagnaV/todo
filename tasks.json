@@ -1,0 +1,32 @@
+{
+    "1":{
+        "title": "Walking",
+        "desc": "Walk 2km a day",
+        "due": "2023-02-19",
+        "priority": 1
+    },
+    "2":{
+        "title": "watering",
+        "desc": "Water the plants",
+        "due": "2023-01-01",
+        "priority": 3
+    },
+    "3":{
+        "title": "Learn React",
+        "desc": "read for an hour",
+        "due": "2023-03-01",
+        "priority": 1
+    },
+    "4":{
+        "title": "Practice react ",
+        "desc": "practice/code for an hour",
+        "due": "2023-03-30",
+        "priority": 2
+    },
+    "5":{
+        "title": "Feed fishes",
+        "desc": "feed two times a day",
+        "due": "2023-03-10",
+        "priority": 2
+    }
+}

@@ -1,0 +1,128 @@
+
+:root{
+    --dark-clr: #2A2F4F;
+    --primary-clr: #917FB3;
+    --light-clr: #FDE2F3;
+    --sec-clr: #E5BEEC;
+}
+
+/* CSS reset */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
+    margin:0;
+    padding:0;
+}
+html,body {
+    margin:0;
+    padding:0;
+}
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+fieldset,img { 
+    border:0;
+}
+input{
+    border:1px solid #b0b0b0;
+    padding:3px 5px 4px;
+    color:#979797;
+    width:190px;
+}
+address,caption,cite,code,dfn,th,var {
+    font-style:normal;
+    font-weight:normal;
+}
+ol,ul {
+    list-style:none;
+}
+caption,th {
+    text-align:left;
+}
+h1,h2,h3,h4,h5,h6 {
+    font-size:100%;
+    font-weight:normal;
+}
+q:before,q:after {
+    content:'';
+}
+abbr,acronym { border:0;
+}
+
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+main{
+    flex: 1;
+    background-color: var(--light-clr);
+}
+footer{
+    background-color: var(--dark-clr);
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 1rem;
+    text-align: center;
+}
+a:visited{
+    color: var(--primary-clr);
+}
+.icon{
+    width: 1.2rem;
+}
+header{
+    background-color: var(--dark-clr);
+    color: var(--light-clr);
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+header h1{
+    font-weight: 700;
+}
+main{
+    display: flex;
+}
+.sidebar{
+    background-color: var(--sec-clr);
+    padding: 1rem;
+}
+.primary{
+    padding: 1rem;
+    border-bottom: 2px solid var(--dark-clr);
+}
+.item{
+    padding: .5rem;
+    position: relative;
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.item::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--dark-clr);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+.item:hover::after{
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.sidebar-heading{
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    font-weight: 700;
+}
+
+.main-content{
+    padding: 1rem;
+}

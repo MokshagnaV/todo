@@ -1,0 +1,29 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "It's a todo list application developed using JavaScript, HTML and CSS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MokshagnaV/todo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MokshagnaV/todo/issues"
+  },
+  "homepage": "https://github.com/MokshagnaV/todo#readme",
+  "devDependencies": {
+    "webpack": "^5.79.0",
+    "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "date-fns": "^2.29.3"
+  }
+}
