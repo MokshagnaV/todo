@@ -1,25 +1,39 @@
 function get(ele){
     return document.createElement(ele);
 }
-function classAdd(ele, cls){
-    ele.classList.add(cls);
+
+function getValueByName(name){
+    const ele = document.querySelector(`[name="${name}"]`);
+    return ele.value;
+}
+
+function classAdd(ele, ...cls){
+    for(const cl of cls){
+        ele.classList.add(cl);
+    }    
 }
 const priorityList = {"1":"high", "2": "moderate", "3": "low"};
 class TaskHTML{
-    constructor(title, priority, due){
+    constructor(title, priority, due, index){
         const container = get("div");
-        classAdd(container, "task");
-        classAdd(container, priorityList[priority]);
+        classAdd(container, "task", priorityList[priority]);
 
         const titleDiv = get("div");
         classAdd(titleDiv, "title");
         titleDiv.textContent = title;
 
+        const utilDiv = get("div"); 
         const duediv = get("due");
         classAdd(duediv, "due");
         duediv.textContent = due;
 
-        container.append(titleDiv, duediv);
+        const del = get("i");
+        classAdd(del, "del", "material-icons");
+        del.setAttribute("data-index", index);
+        del.textContent = "delete";
+
+        utilDiv.append(duediv, del);
+        container.append(titleDiv, utilDiv);
 
         this.getHTML = () =>{
             return container;
@@ -29,9 +43,13 @@ class TaskHTML{
 
 const container = document.querySelector("#container");
 function renderTask(taskList){
+    container.innerHTML = "";
+    const h1 = document.createElement("h1");
+    h1.textContent = "Home";
+    container.append(h1);
     taskList.forEach(task => {
         const taskObject = task.getTask();
-        const taskHtml = new TaskHTML(taskObject.title, taskObject.priority, taskObject.due);
+        const taskHtml = new TaskHTML(taskObject.title, taskObject.priority, taskObject.due, taskList.indexOf(task));
         container.append(taskHtml.getHTML());
     });
 }
@@ -44,6 +62,8 @@ function modalOpen(title){
         const head = document.createElement("h1");
         head.textContent = title;
         modalHead.appendChild(head);
+    }else{
+        modalHead.children[1].textContent = title;
     }
     modal.classList.add("modal-open");
 }
@@ -52,4 +72,4 @@ function modalClose(){
             modal.classList.remove("modal-open");
 }
 
-export default {modalOpen, modalClose, renderTask}
+export default {modalOpen, modalClose, renderTask, getValueByName}
