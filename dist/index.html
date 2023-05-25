@@ -1,85 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TODO</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="" />
     <script src="main.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>TODO</h1>
+      <h1>TODO</h1>
     </header>
     <main>
-        <section class="sidebar">
-            <div class="primary">
-                <div class="item primary-items">Home</div>
-                <div class="item primary-items">Today</div>
-                <div class="item primary-items">This Week</div>
-                <div class="item primary-items">This Month</div>
-            </div>
-            <div class="secondary">
-                <h1 class="sidebar-heading">Projects</h1>
-                <div class="sidebar-projects">
-                    <div class="item project-item">My project</div>
-                    <div class="item project-item" id="add-project">Add Project</div>
-                </div>
-                <h1 class="sidebar-heading">Notes</h1>
-                <div class="sidebar-projects">
-                    <div class="item project-item">My notes</div>
-                </div>
-            </div>
-        </section>
-        <section class="main-content">
-            <div id="container">
-                
-            </div>
-            <i class="add material-icons"  id="addTask">add</i>
-        </section>
-        <div class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <i id="close">&#10007;</i>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-item">
-                            <label for="task-title">Title</label>
-                            <input name="task-title" type="text" id="task-title">
-                        </div>
-                        <div class="form-item">
-                            <label for="task-desc">Task Description</label>
-                            <textarea name="task-desc" id="task-desc" cols="30" rows="10"></textarea>
-                        </div>
-                        <div class="form-item">
-                            <div>
-                                <label for="dueDate">Due Date</label>
-                                <input type="date" name="dueDate" id="dueDate">
-                            </div>
-                            <div>
-                                <label for="priority">Priority</label>
-                                <select name="priority" id="priority">
-                                    <option value="1">High</option>
-                                    <option value="2">Moderate</option>
-                                    <option value="3">Low</option>
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button id="task-add">Add</button>
-                    <button id="close">Cancel</button>
-                </div>
-            </div>
+      <section class="sidebar">
+        <div class="primary">
+          <div class="item primary-items">Home</div>
+          <div class="item primary-items">Today</div>
+          <div class="item primary-items">This Week</div>
+          <div class="item primary-items">This Month</div>
         </div>
+        <div class="secondary">
+          <h1 class="sidebar-heading">Projects</h1>
+          <div class="sidebar-projects">
+            <div class="item project-item">My project</div>
+            <div class="item project-item" id="add-project">Add Project</div>
+          </div>
+          <h1 class="sidebar-heading">Notes</h1>
+          <div class="sidebar-projects">
+            <div class="item project-item">My notes</div>
+          </div>
+        </div>
+      </section>
+      <section class="main-content">
+        <div id="container"></div>
+        <i
+          class="add material-icons"
+          id="addTask"
+          data-toggle="modal"
+          data-trigger="#modal"
+          >add</i
+        >
+      </section>
     </main>
     <footer>
-        Designed and developed with &#9829; by <a href="https://github.com/MokshagnaV"><img src="./images/github.png" class="icon" /> MokshagnaV</a>
+      <p>
+        Designed and developed with &#9829; by
+        <a href="https://github.com/MokshagnaV"
+          ><img src="./images/github.png" class="icon" /> MokshagnaV</a
+        >
+      </p>
+      <p>Copyrights &copy; 2023</p>
     </footer>
-</body>
+    <div class="myModal hidden">
+      <div class="myModal-content">
+        <div class="myModal-header p-3">
+          <h4 id="myModal-title"></h4>
+          <button class="btn btn-sm btn-danger" id="modal-close">
+            <span class="material-icons">close</span>
+          </button>
+        </div>
+        <div class="myModal-body p-3"></div>
+      </div>
+    </div>
+  </body>
 </html>
