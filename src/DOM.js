@@ -1,57 +1,135 @@
 const priorityList = { 1: "danger", 2: "warning", 3: "success" };
 const modalBodies = {
-  addTask: `<form id="task-form">
-    <div class="form-group m-2">
-      <label for="title" class="form-label">Title</label>
-      <input type="text" class="form-control" name="task-title" id="title" required />
-    </div>
-    <div class="form-group m-2">
-      <label for="desc" class="form-label">Description</label>
-      <textarea class="form-control" name="task-desc" id="desc" required></textarea>
-    </div>
-    <div class="form-group m-2">
-      <label for="dueDate" class="form-label">Due</label>
-      <input type="date" class="form-control" id="dueDate" name="dueDate" required />
-    </div>
-    <div class="form-group m-2">
-      <label for="priority" class="form-label d-block">Priority</label>
-      <div class="form-check form-check-inline">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="priority"
-          id="high"
-          value="1"
-          required
-        />
-        <label class="form-check-label" for="high">High</label>
+  addTask: (obj) => {
+    const { title } = obj;
+    return ` 
+    <div class="myModal-content">
+      <div class="myModal-header p-3">
+        <h4 id="myModal-title">${title}</h4>
+        <button class="btn btn-sm btn-danger" id="modal-close">
+          <span class="material-icons">close</span>
+        </button>
       </div>
-      <div class="form-check form-check-inline">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="priority"
-          id="moderate"
-          value="2"
-          required
-        />
-        <label class="form-check-label" for="moderate">Moderate</label>
+      <div class="myModal-body p-3">
+        <form id="task-form">
+          <div class="form-group m-2">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" name="task-title" id="title" required />
+          </div>
+          <div class="form-group m-2">
+            <label for="desc" class="form-label">Description</label>
+            <textarea class="form-control" name="task-desc" id="desc" required></textarea>
+          </div>
+          <div class="form-group m-2">
+            <label for="dueDate" class="form-label">Due</label>
+            <input type="date" class="form-control" id="dueDate" name="dueDate" required />
+          </div>
+          <div class="form-group m-2">
+            <label for="priority" class="form-label d-block">Priority</label>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="priority"
+                id="high"
+                value="1"
+                required
+              />
+              <label class="form-check-label" for="high">High</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="priority"
+                id="moderate"
+                value="2"
+                required
+              />
+              <label class="form-check-label" for="moderate">Moderate</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="priority"
+                id="low"
+                value="3"
+                required
+              />
+              <label class="form-check-label" for="low">Low</label>
+            </div>
+          </div>
+          <input class="btn btn-primary m-2" type="submit" value="Submit" />
+        </form>
       </div>
-      <div class="form-check form-check-inline">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="priority"
-          id="low"
-          value="3"
-          required
-        />
-        <label class="form-check-label" for="low">Low</label>
-      </div>
-    </div>
-    <input class="btn btn-primary m-2" type="submit" value="Submit" />
-  </form>`,
+    </div>`;
+  },
   addProject: "",
+  editTask: (obj) => {
+    const { title, desc, due, priority } = obj;
+    console.log(due);
+    return `
+    <div class="task-card">
+      <div class="header">
+        <span class="material-icons float-end" id="modal-close">close</span>
+      </div>
+      <form class="form-floating">
+        <div class="card-header">
+          <span class="material-icons">task</span>
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="task-title"
+              name="task-title"
+              placeholder="Title"
+              value="${title}"
+            />
+            <label for="task-title">Title</label>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="form-floating">
+            <textarea
+              class="form-control"
+              name="task-desc"
+              id="task-desc"
+              placeholder="Description"
+              style="height: 100px"
+            >${desc}</textarea>
+            <label for="task-desc">Task Description</label>
+          </div>
+          <div class="form-floating">
+            <input
+              type="date"
+              class="form-control"
+              value="${due}"
+              name="task-due"
+              placeholder="date"
+              id="task-due"
+            />
+            <label for="task-due">Due Date</label>
+          </div>
+          <div class="form-floating">
+            <select class="form-select" id="priority" name="priority" placeholder="priority">
+              <option id="high" value="1" ${
+                priority === 1 ? "default" : ""
+              }>High</option>
+              <option id="moderate" value="2" ${
+                priority === 2 ? "default" : ""
+              }>Moderate</option>
+              <option id="low" value="3" ${
+                priority === 3 ? "default" : ""
+              }>Low</option>
+            </select>
+            <label for="priority">Priority of the task</label>
+          </div>
+        </div>
+      </form>
+    </div>
+  `;
+  },
 };
 
 function get(ele) {
@@ -68,6 +146,7 @@ function classAdd(ele, ...cls) {
     ele.classList.add(cl);
   }
 }
+
 class TaskHTML {
   constructor(title, priority, due, index) {
     const container = get("div");
@@ -88,7 +167,12 @@ class TaskHTML {
     del.setAttribute("data-index", index);
     del.textContent = "delete";
 
-    utilDiv.append(duediv, del);
+    const edit = get("span");
+    classAdd(edit, "edit", "material-icons");
+    edit.setAttribute("data-index", index);
+    edit.textContent = "edit";
+
+    utilDiv.append(duediv, del, edit);
     container.append(titleDiv, utilDiv);
 
     this.getHTML = () => {
@@ -102,7 +186,7 @@ function renderTask(taskList) {
   classAdd(container, "tasks");
 
   taskList.forEach((task) => {
-    const taskObject = task.getTask();
+    const taskObject = task.get();
     const taskHtml = new TaskHTML(
       taskObject.title,
       taskObject.priority,
@@ -115,18 +199,31 @@ function renderTask(taskList) {
   return container;
 }
 
-function modalOpen(title, purpose) {
-  const modalTitle = document.querySelector("#myModal-title");
-  modalTitle.textContent = title;
-  const modalBody = document.querySelector(".myModal-body");
-  modalBody.innerHTML = modalBodies[purpose];
+function modalOpen(title, purpose, task) {
+  const modal = get("div");
+  classAdd(modal, "myModal");
 
-  const modal = document.querySelector(".myModal");
-  modal.classList.remove("hidden");
+  switch (purpose) {
+    case "editTask":
+      modal.innerHTML = modalBodies[purpose]({
+        title: task.title,
+        desc: task.desc,
+        due: task.due.toISOString().split("").slice(0, 10).join(""),
+        priority: task.priority,
+      });
+      break;
+    case "addTask":
+      modal.innerHTML = modalBodies[purpose]({ title });
+      break;
+    default:
+      break;
+  }
+  document.body.append(modal);
 }
+
 function modalClose() {
-  const modal = document.querySelector(".myModal");
-  modal.classList.add("hidden");
+  const modals = document.querySelectorAll(".myModal");
+  modals.forEach((modal) => modal.outerHTML = "");
 }
 
 export default {

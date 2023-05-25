@@ -215,6 +215,7 @@ main {
   justify-content: space-between;
 }
 .task {
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
   color: var(--light-clr);
@@ -225,8 +226,10 @@ main {
   display: flex;
   align-items: center;
 }
-.del {
+.del,
+.edit {
   cursor: pointer;
+  z-index: 2;
 }
 #container h1 {
   font-size: 2rem;
@@ -244,6 +247,10 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
+}
+#modal-close{
+  cursor: pointer;
 }
 
 .myModal-header {
@@ -255,4 +262,31 @@ main {
 }
 .myModal-body {
   background-color: var(--light-clr);
+}
+.task .title {
+  font-weight: 500;
+}
+
+.task-card {
+  background-color: var(--bs-gray-100);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+}
+
+.task-card #task-title,
+.task-card #task-desc,
+.task-card #task-due,
+.task-card #priority {
+  border: none;
+  background-color: transparent;
+}
+.form-floating{
+  margin: 1rem 0;
+
 }

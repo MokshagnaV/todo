@@ -31,7 +31,7 @@ function renderHome(taskList) {
 function renderToday(taskList) {
   const tasks = [];
   taskList.forEach((task) => {
-    if (isToday(task.getTask().due)) {
+    if (isToday(task.get().due)) {
       tasks.push(task);
     }
   });
@@ -45,10 +45,11 @@ function renderToday(taskList) {
   container.append(Banner.get("Today's tasks", tasks.length), content);
   return container;
 }
+
 function renderMonth(taskList) {
   const tasks = [];
   taskList.forEach((task) => {
-    if (isThisMonth(task.getTask().due)) {
+    if (isThisMonth(task.get().due)) {
       tasks.push(task);
     }
   });
@@ -63,10 +64,11 @@ function renderMonth(taskList) {
   container.append(Banner.get("This month's tasks", tasks.length), content);
   return container;
 }
+
 function renderWeek(taskList) {
   const tasks = [];
   taskList.forEach((task) => {
-    if (isThisWeek(task.getTask().due)) {
+    if (isThisWeek(task.get().due)) {
       tasks.push(task);
     }
   });

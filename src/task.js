@@ -16,7 +16,7 @@ export default class Task {
     this.editPriority = function (prio) {
       _priority = prio;
     };
-    this.getTask = function () {
+    this.get = function () {
       return {
         title: _title,
         desc: _description,
