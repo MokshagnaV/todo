@@ -20,9 +20,9 @@ function delTaskFromLocalStorage(index) {
   localStorage.setItem("todos", JSON.stringify(localTask));
 }
 
-function editTaskFromLocalStorage(index) {
+function editTaskFromLocalStorage(task, index) {
   const localTask = JSON.parse(localStorage.getItem("todos"));
-
+  localTask.tasks[index] = task.get();
   localStorage.setItem("todos", JSON.stringify(localTask));
 }
 
@@ -37,4 +37,5 @@ export {
   addTaskToLocalStorage,
   taskJsonToObj,
   delTaskFromLocalStorage,
+  editTaskFromLocalStorage,
 };

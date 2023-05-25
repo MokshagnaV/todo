@@ -68,13 +68,12 @@ const modalBodies = {
   addProject: "",
   editTask: (obj) => {
     const { title, desc, due, priority } = obj;
-    console.log(due);
     return `
     <div class="task-card">
       <div class="header">
         <span class="material-icons float-end" id="modal-close">close</span>
       </div>
-      <form class="form-floating">
+      <form class="form-floating" id="edit-task">
         <div class="card-header">
           <span class="material-icons">task</span>
           <div class="form-floating">
@@ -114,21 +113,36 @@ const modalBodies = {
           <div class="form-floating">
             <select class="form-select" id="priority" name="priority" placeholder="priority">
               <option id="high" value="1" ${
-                priority === 1 ? "default" : ""
+                priority === 1 ? "selected" : ""
               }>High</option>
               <option id="moderate" value="2" ${
-                priority === 2 ? "default" : ""
+                priority === 2 ? "selected" : ""
               }>Moderate</option>
               <option id="low" value="3" ${
-                priority === 3 ? "default" : ""
+                priority === 3 ? "selected" : ""
               }>Low</option>
             </select>
             <label for="priority">Priority of the task</label>
           </div>
+          <input class="btn btn-outline-success" type="submit" value="Submit">
         </div>
       </form>
     </div>
   `;
+  },
+  showTask: (obj) => {
+    let { title, desc, due, priority } = obj;
+    priority = priorityList[priority];
+    return `<div class="card border-${priority} mb-3" style="max-width: 18rem;">
+    <div class="card-header"> <span class="material-icons" id="modal-close">close</span> </div>
+    <div class="card-body text-${priority}">
+      <h5 class="card-title">${title}</h5>
+      <p class="card-text">${desc}</p>
+    </div>
+    <div class="card-footer text-muted">
+    <strong>Due by </strong> ${due}
+    </div>
+  </div>`;
   },
 };
 
@@ -151,6 +165,7 @@ class TaskHTML {
   constructor(title, priority, due, index) {
     const container = get("div");
     classAdd(container, "task", "alert", `alert-${priorityList[priority]}`);
+    container.setAttribute("data-index", index);
 
     const titleDiv = get("span");
     classAdd(titleDiv, "title");
@@ -202,7 +217,7 @@ function renderTask(taskList) {
 function modalOpen(title, purpose, task) {
   const modal = get("div");
   classAdd(modal, "myModal");
-
+  console.log(title, purpose, task)
   switch (purpose) {
     case "editTask":
       modal.innerHTML = modalBodies[purpose]({
@@ -215,6 +230,14 @@ function modalOpen(title, purpose, task) {
     case "addTask":
       modal.innerHTML = modalBodies[purpose]({ title });
       break;
+    case "showTask":
+      modal.innerHTML = modalBodies[purpose]({
+        title: task.title,
+        desc: task.desc,
+        due: task.due.toDateString(),
+        priority: task.priority,
+      });
+      break;
     default:
       break;
   }
@@ -223,7 +246,7 @@ function modalOpen(title, purpose, task) {
 
 function modalClose() {
   const modals = document.querySelectorAll(".myModal");
-  modals.forEach((modal) => modal.outerHTML = "");
+  modals.forEach((modal) => (modal.outerHTML = ""));
 }
 
 export default {

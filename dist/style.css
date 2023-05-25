@@ -137,6 +137,9 @@ main {
   font-size: 1rem;
   font-weight: 400;
   cursor: pointer;
+  display: flex;
+  justify-items: center;
+  justify-content: space-between;
 }
 
 .item::after {
@@ -185,7 +188,7 @@ main {
   bottom: 6rem;
   right: 1rem;
   transition: box-shadow 0.5s ease-in-out;
-  z-index: 10;
+  z-index: 2;
 }
 .add:hover {
   box-shadow: 0 0 10px var(--dark-clr);
@@ -221,6 +224,7 @@ main {
   color: var(--light-clr);
   padding: 1rem;
   border-radius: 10px;
+  z-index: 2;
 }
 .task-utils {
   display: flex;
@@ -268,10 +272,11 @@ main {
 }
 
 .task-card {
-  background-color: var(--bs-gray-100);
+  background-color: var(--light-clr);
   padding: 2rem;
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border: 1px solid var(--dark-clr);
 }
 
 .card-header {
@@ -288,5 +293,9 @@ main {
 }
 .form-floating{
   margin: 1rem 0;
+}
 
+.card-header{
+  display: flex;
+  flex-direction: row-reverse;
 }

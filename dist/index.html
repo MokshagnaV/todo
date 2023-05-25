@@ -25,22 +25,34 @@
     <main>
       <section class="sidebar">
         <div class="primary">
-          <div class="item primary-items">Home</div>
-          <div class="item primary-items">Today</div>
-          <div class="item primary-items">This Week</div>
-          <div class="item primary-items">This Month</div>
+          <div class="item primary-items">
+            <span class="material-icons"> home </span>Home
+          </div>
+          <div class="item primary-items">
+            <span class="material-icons"> today </span>Today
+          </div>
+          <div class="item primary-items">
+            <span class="material-icons"> date_range </span>This Week
+          </div>
+          <div class="item primary-items">
+            <span class="material-icons"> calendar_month </span>This Month
+          </div>
         </div>
-        <div class="secondary">
+        <!-- <div class="secondary">
           <h1 class="sidebar-heading">Projects</h1>
           <div class="sidebar-projects">
-            <div class="item project-item">My project</div>
-            <div class="item project-item" id="add-project">Add Project</div>
+            <div class="item project-item">
+              <span class="material-icons"> checklist </span>My project
+            </div>
+            <div class="item project-item" id="add-project">
+              <span class="material-icons"> add </span>Add Project
+            </div>
           </div>
           <h1 class="sidebar-heading">Notes</h1>
           <div class="sidebar-projects">
             <div class="item project-item">My notes</div>
           </div>
-        </div>
+        </div> -->
       </section>
       <section class="main-content">
         <div id="container"></div>
@@ -49,18 +61,29 @@
           id="addTask"
           data-toggle="modal"
           data-trigger="#modal"
-          >add</i
+          >add_task</i
         >
       </section>
     </main>
     <footer>
-      <p>
+      <span class="d-block">
         Designed and developed with &#9829; by
         <a href="https://github.com/MokshagnaV"
           ><img src="./images/github.png" class="icon" /> MokshagnaV</a
         >
-      </p>
-      <p>Copyrights &copy; 2023</p>
+      </span>
+      <span>Copyrights &copy; 2023</span>
     </footer>
+
+    <div class="myModal hidden">
+      <div class="card border-danger mb-3" style="max-width: 18rem;">
+        
+        <div class="card-header d-flex-row-reverse"> sun 13 2 2023 <span class="material-icons" id="modal-close">close</span> </div>
+        <div class="card-body text-danger">
+          <h5 class="card-title">Danger card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
