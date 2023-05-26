@@ -4,13 +4,7 @@ import Note from "./notes";
 import DOM from "./DOM";
 
 import home from "./modules/home";
-import {
-  addTaskToLocalStorage,
-  toLocalStorage,
-  taskJsonToObj,
-  delTaskFromLocalStorage,
-  editTaskFromLocalStorage,
-} from "./modules/formatter";
+import * as formatter from "./modules/formatter";
 
 import tasksJSON from "../tasks.json";
 import notes from "../notes.json";
@@ -20,7 +14,12 @@ const container = document.querySelector("#container");
 let deletes = document.querySelectorAll(".del");
 let edits = document.querySelectorAll(".edit");
 let tasks = document.querySelectorAll(".task");
+let sort = document.querySelector("#sort-by");
+let order = document.querySelector(".order-by");
 let modalClose = document.querySelectorAll("#modal-close");
+
+let orderDown = true;
+let sortBy = "0";
 
 function renderContainer(content) {
   container.innerHTML = "";
@@ -28,6 +27,64 @@ function renderContainer(content) {
   deleteEvent();
   editEvent();
   showTaskEvent();
+  sortEvent();
+  orderEvent();
+}
+
+function deleteEvent() {
+  deletes = document.querySelectorAll(".del");
+  deletes.forEach((del) => {
+    del.addEventListener("click", (e) => {
+      e.stopImmediatePropagation();
+      const index = del.getAttribute("data-index");
+      deleteTask(index);
+    });
+  });
+}
+
+function editEvent() {
+  edits = document.querySelectorAll(".edit");
+  edits.forEach((edit) => {
+    edit.addEventListener("click", (e) => {
+      e.stopImmediatePropagation();
+      const index = edit.getAttribute("data-index");
+      editTask(taskList[index], index);
+    });
+  });
+}
+
+function showTaskEvent() {
+  tasks = document.querySelectorAll(".task");
+  tasks.forEach((task) => {
+    task.addEventListener("click", (e) => {
+      showTask(task.getAttribute("data-index"));
+    });
+  });
+}
+
+function sortEvent() {
+  sort = document.querySelector("#sort-by");
+  sort.addEventListener("change", () => {
+    sortBy = sort.value;
+    sortTasks(sort.value);
+  });
+}
+
+function orderEvent() {
+  order = document.querySelector(".order-by");
+  order.addEventListener("click", () => {
+    console.log("clicked")
+    orderTasks(order);
+  });
+}
+
+function closeEvent() {
+  modalClose = document.querySelectorAll("#modal-close");
+  modalClose.forEach((modal) =>
+    modal.addEventListener("click", () => {
+      DOM.modalClose();
+    })
+  );
 }
 
 const primItems = document.querySelectorAll(".primary-items");
@@ -64,7 +121,7 @@ function addTaskForm() {
       data["priority"]
     );
     taskList.push(task);
-    addTaskToLocalStorage(task);
+    formatter.addTaskToLocalStorage(task);
     renderContainer(home.renderHome(taskList));
     DOM.modalClose();
   });
@@ -80,70 +137,56 @@ function editTaskForm(task, index) {
     task.editDueDate(new Date(data["task-due"]));
     task.editPriority(data["priority"]);
     renderContainer(home.renderHome(taskList));
-    editTaskFromLocalStorage(task, index);
+    formatter.editTaskFromLocalStorage(task, index);
     DOM.modalClose();
   });
 }
 
-function closeEvent() {
-  modalClose = document.querySelectorAll("#modal-close");
-  modalClose.forEach((modal) =>
-    modal.addEventListener("click", () => {
-      DOM.modalClose();
-    })
-  );
-}
-
-function deleteEvent() {
-  deletes = document.querySelectorAll(".del");
-  deletes.forEach((del) => {
-    del.addEventListener("click", (e) => {
-      e.stopImmediatePropagation();
-      const index = del.getAttribute("data-index");
-      deleteTask(index);
-    });
-  });
-}
 function deleteTask(index) {
   taskList.splice(index, 1);
-  delTaskFromLocalStorage(index);
+  formatter.delTaskFromLocalStorage(index);
   renderContainer(home.renderHome(taskList));
 }
 
-function editEvent() {
-  edits = document.querySelectorAll(".edit");
-  edits.forEach((edit) => {
-    edit.addEventListener("click", (e) => {
-      e.stopImmediatePropagation();
-      const index = edit.getAttribute("data-index");
-      editTask(taskList[index], index);
-    });
-  });
-}
 function editTask(task, index) {
   DOM.modalOpen(task.get().title, "editTask", task.get());
   closeEvent();
   editTaskForm(task, index);
 }
 
-function showTaskEvent() {
-  tasks = document.querySelectorAll(".task");
-  tasks.forEach((task) => {
-    task.addEventListener("click", (e) => {
-      const index = task.getAttribute("data-index");
-      DOM.modalOpen(taskList[index].get().title, "showTask", taskList[index].get())
-      closeEvent();
-    });
-  });
+function showTask(index) {
+  DOM.modalOpen(taskList[index].get().title, "showTask", taskList[index].get());
+  closeEvent();
 }
 
-function showTask() {}
+function sortTasks(sortBy) {
+  const tasksContainer = document.querySelector(".tasks");
+  tasksContainer.innerHTML = "";
+  tasksContainer.append(
+    DOM.renderTask(formatter.sortTasksBy(taskList, sortBy, orderDown))
+  );
+}
+
+function orderTasks(order) {
+  if (order.classList.contains("order-down")) {
+    orderDown = true;
+    order.classList.remove("order-down");
+  } else {
+    orderDown = false;
+    order.classList.add("order-down");
+  }
+  const tasksContainer = document.querySelector(".tasks");
+  tasksContainer.innerHTML = "";
+  tasksContainer.append(
+    DOM.renderTask(formatter.sortTasksBy(taskList, sortBy, orderDown))
+  );
+}
 
 let taskList = [];
 if (localStorage.getItem("todos")) {
   const localTask = JSON.parse(localStorage.getItem("todos"));
   taskList.push(...localTask.tasks);
-  taskList = taskJsonToObj(taskList);
+  taskList = formatter.taskJsonToObj(taskList);
 } else {
   for (const key in tasksJSON) {
     const task = new Task(
@@ -154,7 +197,7 @@ if (localStorage.getItem("todos")) {
     );
     taskList.push(task);
   }
-  toLocalStorage(taskList, "tasks");
+  formatter.toLocalStorage(taskList, "tasks");
 }
 // taskList.push(
 //   new Task("Today is testing task", "Testing the tasks list", new Date(), 3)

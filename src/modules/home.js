@@ -1,18 +1,48 @@
 import DOM from "../DOM";
 import { isThisMonth, isThisWeek, isToday } from "date-fns";
 
+function noTasks() {
+  const res = DOM.get("div");
+  res.innerHTML =
+    '<div class="alert alert-primary" role="alert"> No Tasks! </div>';
+  return res;
+}
+
 const Banner = (function () {
   const cont = DOM.get("div");
-  DOM.classAdd(cont, "d-flex", "align-items-center");
+  cont.setAttribute("id", "main-content-head");
   const label = DOM.get("span");
   DOM.classAdd(label, "badge", "text-bg-info");
   const h1 = DOM.get("h1");
   DOM.classAdd(h1, "title");
+
+  const sort = DOM.get("div");
+  DOM.classAdd(sort, "d-flex", "align-items-center", "g-2");
+  sort.innerHTML = `<div class="form-floating">
+  <select class="form-select" name="sort-by" id="sort-by">
+    <option value="0">Select</option>
+    <option value="priority">Priority</option>
+    <option value="due">Due date</option>
+    <option value="title">Title</option>
+  </select>
+  <label for="sort-by">Sort by</label>
+</div>`;
+  const order = DOM.get("button");
+  order.setAttribute("title", "Order By")
+  DOM.classAdd(order, "btn", "btn-light", "mx-2", "order-by");
+  order.innerHTML = `<span class="material-icons">
+  filter_list
+  </span>
+  `;
+  sort.append(order);
   return {
     get: (title, count) => {
       h1.textContent = title;
       label.textContent = count;
-      cont.append(h1, label);
+      const leftPart = DOM.get("div");
+      DOM.classAdd(leftPart, "d-flex", "align-items-center");
+      leftPart.append(h1, label);
+      cont.append(leftPart, sort);
       return cont;
     },
   };
@@ -38,7 +68,7 @@ function renderToday(taskList) {
 
   const container = DOM.get("div");
 
-  let content = "No Tasks";
+  let content = noTasks();
   if (tasks.length != 0) {
     content = DOM.renderTask(tasks);
   }
@@ -56,7 +86,7 @@ function renderMonth(taskList) {
 
   const container = DOM.get("div");
 
-  let content = "No Tasks";
+  let content = noTasks();
   if (tasks.length != 0) {
     content = DOM.renderTask(tasks);
   }
@@ -75,7 +105,7 @@ function renderWeek(taskList) {
 
   const container = DOM.get("div");
 
-  let content = "No Tasks";
+  let content = noTasks();
   if (tasks.length != 0) {
     content = DOM.renderTask(tasks);
   }

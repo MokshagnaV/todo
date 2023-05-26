@@ -217,7 +217,6 @@ function renderTask(taskList) {
 function modalOpen(title, purpose, task) {
   const modal = get("div");
   classAdd(modal, "myModal");
-  console.log(title, purpose, task)
   switch (purpose) {
     case "editTask":
       modal.innerHTML = modalBodies[purpose]({

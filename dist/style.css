@@ -124,8 +124,9 @@ main {
   display: flex;
 }
 .sidebar {
+  width: 200px;
   background-color: var(--sec-clr);
-  padding: 1rem;
+  transition: width .5s linear;
 }
 .primary {
   padding: 1rem;
@@ -171,6 +172,11 @@ main {
   flex: 1;
   position: relative;
 }
+#main-content-head{
+  display: flex;
+  justify-content: space-between;
+}
+
 #container {
   flex: 1;
 }
@@ -224,7 +230,6 @@ main {
   color: var(--light-clr);
   padding: 1rem;
   border-radius: 10px;
-  z-index: 2;
 }
 .task-utils {
   display: flex;
@@ -253,7 +258,7 @@ main {
   align-items: center;
   z-index: 10;
 }
-#modal-close{
+#modal-close {
   cursor: pointer;
 }
 
@@ -284,18 +289,31 @@ main {
   align-items: center;
 }
 
-.task-card #task-title,
-.task-card #task-desc,
-.task-card #task-due,
-.task-card #priority {
-  border: none;
-  background-color: transparent;
-}
-.form-floating{
+.form-floating {
   margin: 1rem 0;
 }
 
-.card-header{
+.card-header {
   display: flex;
   flex-direction: row-reverse;
+}
+
+.order-down{
+  transform: rotate(180deg);
+}
+
+@media only screen and (max-width: 700px) {
+  .sidebar {
+    width: 70px;
+    overflow: hidden;
+  }
+  .sidebar:hover{
+    width: 200px;
+  }
+  .item-icon{
+    margin-right: 1.5rem;
+  }
+  .item-title{
+    flex-shrink: 0;
+  }
 }

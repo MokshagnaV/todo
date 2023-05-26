@@ -32,10 +32,24 @@ function taskJsonToObj(jsonTask) {
   });
 }
 
+function sortTasksBy(taskList, sortBy, order) {
+  const res = [...taskList];
+  res.sort((task1, task2) => {
+    const [a, b] = [task1.get()[sortBy], task2.get()[sortBy]];
+    if (order) {
+      return a === b ? 0 : a < b ? -1 : 1;
+    } else {
+      return a === b ? 0 : a < b ? 1 : -1;
+    }
+  });
+  return res;
+}
+
 export {
   toLocalStorage,
   addTaskToLocalStorage,
   taskJsonToObj,
   delTaskFromLocalStorage,
   editTaskFromLocalStorage,
+  sortTasksBy,
 };
