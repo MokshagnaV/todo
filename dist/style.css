@@ -164,9 +164,10 @@ main {
 }
 
 .sidebar-heading {
-  font-size: 2rem;
+  font-size: 1.5rem;
   padding: 0.5rem 1rem;
   font-weight: 700;
+  transition: all 0.5s linear;
 }
 
 .main-content {
@@ -316,10 +317,21 @@ main {
   .sidebar:hover{
     width: 200px;
   }
+  .sidebar:hover .sidebar-heading{
+    position:unset;
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+  }
   .item-icon{
     margin-right: 1.5rem;
   }
   .item-title{
     flex-shrink: 0;
+  }
+  .sidebar-heading{
+    position: relative;
+    left: -2px;
+    font-size: .9rem;
+    padding: 0;
   }
 }
