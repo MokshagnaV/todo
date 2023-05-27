@@ -6,7 +6,7 @@ export default class Project{
         const _todos = {};
 
         this.addTodo = function(todo){
-            _todos[`${todo.getTask().title}`]= todo.getTask();
+            _todos[`${todo.get().title}`]= todo;
         }
 
         this.showAllTodos = function() { 

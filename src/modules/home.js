@@ -35,12 +35,12 @@ const Banner = (function () {
   </span>
   `;
   sort.append(order);
+  const leftPart = DOM.get("div");
+  DOM.classAdd(leftPart, "d-flex", "align-items-center");
   return {
     get: (title, count) => {
       h1.textContent = title;
       label.textContent = count;
-      const leftPart = DOM.get("div");
-      DOM.classAdd(leftPart, "d-flex", "align-items-center");
       leftPart.append(h1, label);
       cont.append(leftPart, sort);
       return cont;
@@ -113,4 +113,4 @@ function renderWeek(taskList) {
   return container;
 }
 
-export default { renderHome, renderToday, renderMonth, renderWeek };
+export default { renderHome, renderToday, renderMonth, renderWeek, Banner };

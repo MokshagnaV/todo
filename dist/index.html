@@ -42,22 +42,19 @@
             ><span class="item-title">This Month</span>
           </div>
         </div>
-        <!-- <div class="secondary">
+        <div class="secondary">
           <h1 class="sidebar-heading">Projects</h1>
           <div class="sidebar-projects">
-            <div class="item project-item">
-              <span class="material-icons"> checklist </span>My project
-            </div>
-            <div class="item project-item" id="add-project">
-              <span class="material-icons"> add </span>Add Project
+            <div class="projects-list"></div>
+            <div class="item" id="add-project">
+              <span class="item-icon material-icons"> add </span>Add Project
             </div>
           </div>
           <h1 class="sidebar-heading">Notes</h1>
           <div class="sidebar-projects">
-            <div class="item project-item">My notes</div>
+            <div class="item">My notes</div>
           </div>
-        </div> -->
-        
+        </div>
       </section>
       <section class="main-content">
         <div id="container"></div>
@@ -80,20 +77,22 @@
       <span>Copyrights &copy; 2023</span>
     </footer>
 
-    <div class="myModal hidden">
-      <div class="card border-danger mb-3" style="max-width: 18rem">
-        <div class="card-header d-flex-row-reverse">
-          sun 13 2 2023
+    <!-- <div class="myModal hidden">
+      <div class="card">
+        <div class="card-header d-flex-row-reverse align-items-center">
           <span class="material-icons" id="modal-close">close</span>
+          <h5 class="card-title me-auto">Add Project</h5>
         </div>
-        <div class="card-body text-danger">
-          <h5 class="card-title">Danger card title</h5>
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
+        <div class="card-body">
+          <form id="add-project-form">
+            <div class="form-floating">
+              <input type="text" id="addProject" class="form-control" placeholder="Create Project">
+              <label for="addProject">Create Project</label>
+            </div>
+            <input class="btn btn-outline-success" type="submit" value="Create">
+          </form>
         </div>
       </div>
-    </div>
+    </div> -->
   </body>
 </html>

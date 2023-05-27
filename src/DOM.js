@@ -65,7 +65,23 @@ const modalBodies = {
       </div>
     </div>`;
   },
-  addProject: "",
+  addProject: () => {
+    return `<div class="card">
+    <div class="card-header d-flex-row-reverse align-items-center">
+      <span class="material-icons" id="modal-close">close</span>
+      <h5 class="card-title me-auto">Add Project</h5>
+    </div>
+    <div class="card-body">
+      <form id="add-project-form">
+        <div class="form-floating">
+          <input type="text" id="addProject" name="project-title" class="form-control" placeholder="Create Project">
+          <label for="addProject">Create Project</label>
+        </div>
+        <input class="btn btn-outline-success" type="submit" value="Create">
+      </form>
+    </div>
+  </div>`
+  },
   editTask: (obj) => {
     const { title, desc, due, priority } = obj;
     return `
@@ -238,6 +254,7 @@ function modalOpen(title, purpose, task) {
       });
       break;
     default:
+      modal.innerHTML = modalBodies[purpose]();
       break;
   }
   document.body.append(modal);

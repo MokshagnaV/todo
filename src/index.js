@@ -5,6 +5,7 @@ import DOM from "./DOM";
 
 import home from "./modules/home";
 import * as formatter from "./modules/formatter";
+import projectPage from "./modules/projectPage";
 
 import tasksJSON from "../tasks.json";
 import notes from "../notes.json";
@@ -14,6 +15,7 @@ const container = document.querySelector("#container");
 let deletes = document.querySelectorAll(".del");
 let edits = document.querySelectorAll(".edit");
 let tasks = document.querySelectorAll(".task");
+let projects = document.querySelector(".project-item");
 let sort = document.querySelector("#sort-by");
 let order = document.querySelector(".order-by");
 let modalClose = document.querySelectorAll("#modal-close");
@@ -29,6 +31,7 @@ function renderContainer(content) {
   showTaskEvent();
   sortEvent();
   orderEvent();
+  projectsEvent();
 }
 
 function deleteEvent() {
@@ -73,7 +76,6 @@ function sortEvent() {
 function orderEvent() {
   order = document.querySelector(".order-by");
   order.addEventListener("click", () => {
-    console.log("clicked")
     orderTasks(order);
   });
 }
@@ -85,6 +87,18 @@ function closeEvent() {
       DOM.modalClose();
     })
   );
+}
+
+function projectsEvent() {
+  try {
+    projects = document.querySelectorAll(".project-item");
+    projects.forEach((project) => {
+      project.addEventListener("click", (e) => {
+        const projectTitle = project.childNodes[1].textContent;
+        renderContainer(projectPage.renderProject(projectsList.find(pro=>pro.title === projectTitle)))
+      });
+    });
+  } catch (ex) {}
 }
 
 const primItems = document.querySelectorAll(".primary-items");
@@ -124,6 +138,18 @@ function addTaskForm() {
     formatter.addTaskToLocalStorage(task);
     renderContainer(home.renderHome(taskList));
     DOM.modalClose();
+  });
+}
+
+function addProjectForm() {
+  const projectForm = document.getElementById("add-project-form");
+  projectForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target));
+    projectsList.push(new Project(data["project-title"]));
+    DOM.modalClose();
+    projectPage.renderSidebar(projectsList);
+    projectsEvent();
   });
 }
 
@@ -203,6 +229,10 @@ if (localStorage.getItem("todos")) {
 //   new Task("Today is testing task", "Testing the tasks list", new Date(), 3)
 // );
 
+let projectsList = [];
+const test = new Project("Test1")
+test.addTodo(new Task("p1", "uhefh uesfh u erfus ", new Date(), 1));
+projectsList.push(test);
 const addTask = document.querySelector("#addTask");
 addTask.addEventListener("click", () => {
   DOM.modalOpen("Add Task", "addTask");
@@ -211,8 +241,12 @@ addTask.addEventListener("click", () => {
 });
 
 renderContainer(home.renderHome(taskList));
+projectPage.renderSidebar(projectsList);
+projectsEvent();
 
-// const addProject = document.querySelector("#add-project");
-// addProject.addEventListener("click", () => {
-//   DOM.modalOpen("Add Project", addProject);
-// });
+const addProject = document.querySelector("#add-project");
+addProject.addEventListener("click", () => {
+  DOM.modalOpen("Add Project", "addProject");
+  closeEvent();
+  addProjectForm();
+});
