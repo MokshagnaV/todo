@@ -12,7 +12,7 @@ const Banner = (function () {
   const cont = DOM.get("div");
   cont.setAttribute("id", "main-content-head");
   const label = DOM.get("span");
-  DOM.classAdd(label, "badge", "text-bg-info");
+  DOM.classAdd(label, "badge", "bg-info", "text-dark");
   const h1 = DOM.get("h1");
   DOM.classAdd(h1, "title");
 
