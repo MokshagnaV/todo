@@ -95,7 +95,11 @@ function projectsEvent() {
     projects.forEach((project) => {
       project.addEventListener("click", (e) => {
         const projectTitle = project.childNodes[1].textContent;
-        renderContainer(projectPage.renderProject(projectsList.find(pro=>pro.title === projectTitle)))
+        renderContainer(
+          projectPage.renderProject(
+            projectsList.find((pro) => pro.title === projectTitle)
+          )
+        );
       });
     });
   } catch (ex) {}
@@ -230,14 +234,18 @@ if (localStorage.getItem("todos")) {
 // );
 
 let projectsList = [];
-const test = new Project("Test1")
+const test = new Project("Test1");
 test.addTodo(new Task("p1", "uhefh uesfh u erfus ", new Date(), 1));
 projectsList.push(test);
 const addTask = document.querySelector("#addTask");
 addTask.addEventListener("click", () => {
   DOM.modalOpen("Add Task", "addTask");
   closeEvent();
-  addTaskForm();
+  if (addTask.getAttribute("data-pro-name")) {
+    projectPage.addTask(addTask.getAttribute("data-pro-name"), projectsList);
+  } else {
+    addTaskForm();
+  }
 });
 
 renderContainer(home.renderHome(taskList));
@@ -250,3 +258,5 @@ addProject.addEventListener("click", () => {
   closeEvent();
   addProjectForm();
 });
+
+export { renderContainer };

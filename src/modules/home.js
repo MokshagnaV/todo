@@ -1,6 +1,11 @@
 import DOM from "../DOM";
 import { isThisMonth, isThisWeek, isToday } from "date-fns";
 
+function handleAdd() {
+  const addButton = document.querySelector("#addTask");
+  addButton.removeAttribute("data-pro-name");
+}
+
 function noTasks() {
   const res = DOM.get("div");
   res.innerHTML =
@@ -28,7 +33,7 @@ const Banner = (function () {
   <label for="sort-by">Sort by</label>
 </div>`;
   const order = DOM.get("button");
-  order.setAttribute("title", "Order By")
+  order.setAttribute("title", "Order By");
   DOM.classAdd(order, "btn", "btn-light", "mx-2", "order-by");
   order.innerHTML = `<span class="material-icons">
   filter_list
@@ -50,7 +55,7 @@ const Banner = (function () {
 
 function renderHome(taskList) {
   const container = DOM.get("div");
-
+  handleAdd();
   container.append(
     Banner.get("Home", taskList.length),
     DOM.renderTask(taskList)
@@ -59,6 +64,7 @@ function renderHome(taskList) {
 }
 
 function renderToday(taskList) {
+  handleAdd();
   const tasks = [];
   taskList.forEach((task) => {
     if (isToday(task.get().due)) {
@@ -77,6 +83,7 @@ function renderToday(taskList) {
 }
 
 function renderMonth(taskList) {
+  handleAdd();
   const tasks = [];
   taskList.forEach((task) => {
     if (isThisMonth(task.get().due)) {
@@ -96,6 +103,7 @@ function renderMonth(taskList) {
 }
 
 function renderWeek(taskList) {
+  handleAdd();
   const tasks = [];
   taskList.forEach((task) => {
     if (isThisWeek(task.get().due)) {

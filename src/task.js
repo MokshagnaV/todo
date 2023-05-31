@@ -1,6 +1,6 @@
 export default class Task {
   constructor(title, description, dueDate, priority) {
-    let _title = title;
+    let _title = title.toLowerCase();
     let _description = description;
     let _dueDate = dueDate;
     let _priority = priority;
